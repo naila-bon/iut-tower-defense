@@ -1,28 +1,17 @@
 package game;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.io.InputStream;
 import java.util.LinkedList;
-import java.util.Scanner;
 import java.util.List;
+import java.util.Scanner;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/* The class begins below the enum. */
-
-/**
- * This 'enum' just creates a new type of data (like int or char).
- * The type is 'GameState', and the legal values are shown below.
- * We can create variables of this type, and we can store the 
- * values shown below into those variables.
- * 
- * The alternative would have been to use integers to represent states.
- * For example, we could have said 0=setup, 1=update, etc.  I don't like
- * using integers in this way because I would have to remember what
- * they mean.  By using an enum, I can store values that look like what
- * they represent.  SETUP = The game is setting up, etc.
- */
-enum GameState { SETUP, UPDATE, DRAW, WAIT, END }
 
 /**
  * This class represents the playable game.  If you create an
@@ -36,6 +25,22 @@ enum GameState { SETUP, UPDATE, DRAW, WAIT, END }
  */
 public class Game implements Runnable
 {
+
+    /**
+     * This 'enum' just creates a new type of data (like int or char).
+     * The type is 'GameState', and the legal values are shown below.
+     * We can create variables of this type, and we can store the 
+     * values shown below into those variables.
+     * 
+     * The alternative would have been to use integers to represent states.
+     * For example, we could have said 0=setup, 1=update, etc.  I don't like
+     * using integers in this way because I would have to remember what
+     * they mean.  By using an enum, I can store values that look like what
+     * they represent.  SETUP = The game is setting up, etc.
+     */
+    public enum GameState { SETUP, UPDATE, DRAW, WAIT, END }
+
+
     /* Static methods */
     
     /**
@@ -112,6 +117,29 @@ public class Game implements Runnable
         
         Thread t = new Thread(this);
         t.start();  // Our run method is now executing!!!
+    }
+
+    /**
+     * Constructs a new Game instance.
+     *
+     * @param testMode whether to initialize the game in test mode (true) or normal mode (false)
+     */
+    public Game (boolean testMode)
+    {
+        // The game starts in the SETUP state.
+        
+        state = GameState.SETUP;
+        gamePanel = new GamePanel(this);
+        // Create a thread of execution and run it.
+        
+    
+        if (!testMode) {
+            Thread t = new Thread(this);
+            t.start();  // Our run method is now executing!!!
+        } else {
+            doSetupStuff(); // setup immédiat pour les tests
+            state = GameState.END;
+        }
     }
     
     /**
@@ -534,5 +562,78 @@ public class Game implements Runnable
     	{
     		newSun.setPosition(mouseLocation);
     	}	
+    }
+
+
+    /**
+     * Returns the total number of enemies the player has stopped.
+     *
+     * @return the current number of kills
+     */
+    public int getKills() {
+        return killsCounter;
+    }
+
+    /**
+     * Increments the number of enemies stopped by the player.
+     */
+    public void addKill() {
+        killsCounter++;
+    }
+
+    /**
+     * Returns the total lives of the player.
+     *
+     * @return the current lives
+     */
+    public int getLives() {
+        return livesCounter;
+    }
+
+    /**
+     * Returns the total score of the player.
+     *
+     * @return the current score
+     */
+    public int getScore() {
+        return scoreCounter;
+    }
+
+    /**
+     * Adds points to the score of th player.
+     *
+     * @param points the points to add to the score value
+     */
+    public void addScore(int points) {
+        scoreCounter += points;
+    }
+
+    /**
+     * Returns the current list of enemies in the game.
+     *
+     * @return a List of Enemy objects currently in the game
+     */
+    public List<Enemy> getEnemies() {
+        return enemies;
+    }
+
+    
+
+    /**
+     * Returns the current list of towers in the game.
+     * 
+     * @return a List of Tower objects currently in the game
+     */
+    public List<Tower> getTowers() {
+        return towers;
+    }
+
+    /**
+     * Returns the current state of the game.
+     * 
+     * @return the current {@link GameState} of the game
+     */
+    public GameState getState() {
+        return state;
     }
 }	

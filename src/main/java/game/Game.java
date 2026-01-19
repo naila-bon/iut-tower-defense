@@ -191,7 +191,7 @@ public class Game implements Runnable
         
     	// creates a new ImageLoader object and loads the background image
 		ImageLoader loader = ImageLoader.getLoader();
-        backdrop = loader.getImage("resources/stars.jpg");
+        backdrop = loader.getImage("images/stars.jpg");
         
         JOptionPane.showMessageDialog(null,  "Rules of the game:\n" +
         		"1. Place towers on the map to stop enemies from reaching the Earth.\n" +
@@ -211,7 +211,7 @@ public class Game implements Runnable
         // Use the loader to build a scanner on the path data text file, then build the 
         // path points object from the data in the file.
 		ClassLoader myLoader = this.getClass().getClassLoader();
-        InputStream pointStream = myLoader.getResourceAsStream("resources/path_1.txt");
+        InputStream pointStream = myLoader.getResourceAsStream("path_1.txt");
         Scanner s = new Scanner (pointStream);
         line  = new PathPoints(s);
 
@@ -407,7 +407,7 @@ public class Game implements Runnable
         	newSun.draw(g);
         
         ImageLoader loader = ImageLoader.getLoader();	
-		Image endGame = loader.getImage("resources/game_over.png"); // load game over image
+		Image endGame = loader.getImage("images/game_over.png"); // load game over image
     	
         if(livesCounter <= 0)										// if game is lost
         	g.drawImage(endGame, 0, 0, null);						// draw "game over"

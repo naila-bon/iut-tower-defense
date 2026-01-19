@@ -9,7 +9,7 @@ public class SunSpot extends Effect
 	{
 		// Loads star dust image
 		ImageLoader loader = ImageLoader.getLoader();
-		this.picture = loader.getImage("resources/sun_spot.png");
+		this.picture = loader.getImage("images/sun_spot.png");
 		
 		// X and Y position of Effect
 		this.posX = pos.x;

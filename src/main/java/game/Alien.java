@@ -11,7 +11,7 @@ public class Alien extends Enemy
 	Alien(PathPosition p)
 	{
 		ImageLoader loader = ImageLoader.getLoader();
-		this.enemy = loader.getImage("resources/Alien-Ship.png");
+		this.enemy = loader.getImage("images/Alien-Ship.png");
 		this.position = p;
 		this.anchorX = -20;
 		this.anchorY = -20;

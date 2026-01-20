@@ -4,7 +4,7 @@ import game.ImageLoader;
 import game.path.PathPosition;
 
 /**
- * This class creates a single comet enemy
+ * This class creates a single asteroid enemy
  */
 public class Asteroid extends Enemy
 {

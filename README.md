@@ -16,20 +16,21 @@ Make sure you have the following installed on your system:
 
 
 ## Project Structure
-project-root/
-├── pom.xml
-├── src/
-│   └── main/
-│       └── java/game/
-│               ├── effect/
-│               ├── enemy/
-│               ├── panel/
-│               ├── path/
-│               ├── tower/
-│               ├── util/ImageLoader.java
-│               └── Game.java
-└── target/
-
+  ```bash
+    project-root/
+    ├── pom.xml
+    ├── src/
+    │   └── main/
+    │       └── java/game/
+    │               ├── effect/
+    │               ├── enemy/
+    │               ├── panel/
+    │               ├── path/
+    │               ├── tower/
+    │               ├── util/ImageLoader.java
+    │               └── Game.java
+    └── target/
+  ```
 
 ## Project Structure
 From the project root directory (where pom.xml is located), run:
@@ -40,7 +41,7 @@ From the project root directory (where pom.xml is located), run:
 ## Run the Application
 - **Option 1: Run the generated JAR**
   ```bash
-  java -jar target/<project-name>.jar
+  java -jar target/iut-tower-defense-1.0-SNAPSHOT.jar
 
 
 - **Option 2: Run using Maven**

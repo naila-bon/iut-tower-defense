@@ -12,6 +12,34 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import game.effect.Effect;
+import game.enemy.Alien;
+import game.enemy.Asteroid;
+import game.enemy.Comet;
+import game.enemy.Enemy;
+import game.panel.GamePanel;
+import game.path.Coordinate;
+import game.path.PathPoints;
+import game.tower.BlackHole;
+import game.tower.Sun;
+import game.tower.Tower;
+
+
+/* The class begins below the enum. */
+
+/**
+ * This 'enum' just creates a new type of data (like int or char).
+ * The type is 'GameState', and the legal values are shown below.
+ * We can create variables of this type, and we can store the 
+ * values shown below into those variables.
+ * 
+ * The alternative would have been to use integers to represent states.
+ * For example, we could have said 0=setup, 1=update, etc.  I don't like
+ * using integers in this way because I would have to remember what
+ * they mean.  By using an enum, I can store values that look like what
+ * they represent.  SETUP = The game is setting up, etc.
+ */
+enum GameState { SETUP, UPDATE, DRAW, WAIT, END }
 
 /**
  * This class represents the playable game.  If you create an
@@ -25,22 +53,6 @@ import javax.swing.JOptionPane;
  */
 public class Game implements Runnable
 {
-
-    /**
-     * This 'enum' just creates a new type of data (like int or char).
-     * The type is 'GameState', and the legal values are shown below.
-     * We can create variables of this type, and we can store the 
-     * values shown below into those variables.
-     * 
-     * The alternative would have been to use integers to represent states.
-     * For example, we could have said 0=setup, 1=update, etc.  I don't like
-     * using integers in this way because I would have to remember what
-     * they mean.  By using an enum, I can store values that look like what
-     * they represent.  SETUP = The game is setting up, etc.
-     */
-    public enum GameState { SETUP, UPDATE, DRAW, WAIT, END }
-
-
     /* Static methods */
     
     /**
@@ -119,29 +131,6 @@ public class Game implements Runnable
         t.start();  // Our run method is now executing!!!
     }
 
-    /**
-     * Constructs a new Game instance.
-     *
-     * @param testMode whether to initialize the game in test mode (true) or normal mode (false)
-     */
-    public Game (boolean testMode)
-    {
-        // The game starts in the SETUP state.
-        
-        state = GameState.SETUP;
-        gamePanel = new GamePanel(this);
-        // Create a thread of execution and run it.
-        
-    
-        if (!testMode) {
-            Thread t = new Thread(this);
-            t.start();  // Our run method is now executing!!!
-        } else {
-            doSetupStuff(); // setup immédiat pour les tests
-            state = GameState.END;
-        }
-    }
-    
     /**
      * The entry point for the second thread of execution.  Our
      * game loop is entirely within this method.
@@ -617,6 +606,23 @@ public class Game implements Runnable
         return enemies;
     }
 
+    
+    /**
+     * Removes an enemy from the current list of enemies in the game.
+     *
+     */
+    public void removeEnemie(Enemy e) {
+        this.enemies.remove(e);
+    }
+
+
+    /**
+     * Adds Effect to the current list of effects in the game.
+     *
+     */
+    public void addEffect(Effect effect) {
+        this.effects.add(effect);
+    }
     
 
     /**

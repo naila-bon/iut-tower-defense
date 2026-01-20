@@ -23,19 +23,5 @@ class GameTest {
         assertEquals(200, game.getScore());
     }
 
-    @Test
-    void testGameRun() throws InterruptedException {
-        Game game;
-        
-        game = new Game(true); 
-
-        assertEquals(10, game.getLives());
-        assertEquals(200, game.getScore());
-        assertEquals(0, game.getKills());
-        assertNotNull(game.getEnemies());
-        assertNotNull(game.getTowers());
-    }
-
-
 
 }

@@ -1,11 +1,8 @@
 package game.tower;
 
-import java.util.List;
-
-import game.Game;
 import game.ImageLoader;
+import game.effect.Effect;
 import game.effect.SunSpot;
-import game.enemy.Enemy;
 import game.path.Coordinate;
 
 /**
@@ -28,44 +25,15 @@ public class Sun extends Tower
 	/**
 	 * 
 	 */
-	public void interact(Game game, double deltaTime)
-	{
-		
-		List<Enemy> enemies = game.getEnemies(); // new list of enemies
-		
-		// tracks time that effect has existed
-		timeSinceLastFire += deltaTime;
-		
-		// if time less than 1.5 seconds, don't interact
-		if(timeSinceLastFire < .2)
-			return;
-		
-		// Gives position of an enemy in enemy list
-		for(Enemy e: enemies)
-		{	
-			// holds position of enemy
-			Coordinate enemyPos = e.getPosition().getCoordinate();
+	protected double getFireRate() {
+		return 0.2;
+	}
 
-			// Compute distance of enemy to tower
-			double dx, dy, dist;	// change in x, y, and total distance
-			
-			// calculates change in x and y position 
-			dx = enemyPos.x - position.x; // x position of enemy - tower
-			dy = enemyPos.y - position.y; // y position of enemy - tower
-		
-			// use Pythagorean theorem to calculate distance
-			dist = Math.sqrt((dx*dx) + (dy*dy));
-			
-			// holds position of effect
-			Coordinate pos = new Coordinate(position.x, position.y);	
-			
-			// if enemy is in range, fire salt
-			if(dist < 100)
-			{	SunSpot sunspot = new SunSpot(pos, enemyPos);
-				game.addEffect(sunspot);
-				timeSinceLastFire = 0;
-				return;
-			}	
-		} 
+	protected double getRange() {
+		return 100.0;
+	}
+
+	protected Effect createEffect(Coordinate towerPos, Coordinate enemyPos) {
+		return new SunSpot(towerPos, enemyPos);
 	}
 }

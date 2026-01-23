@@ -2,8 +2,11 @@ package game.tower;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.List;
 
 import game.Game;
+import game.effect.Effect;
+import game.enemy.Enemy;
 import game.path.Coordinate;
 
 /**
@@ -36,7 +39,39 @@ abstract public class Tower
 		position = c;
 	}
 	
-	public abstract void interact(Game game, double deltaTime);
+	public void interact(Game game, double deltaTime)
+	{
+		timeSinceLastFire += deltaTime;
+
+		if(timeSinceLastFire < getFireRate())
+			return;
+
+		List<Enemy> enemies = game.getEnemies();
+
+		for(Enemy e: enemies)
+		{
+			Coordinate enemyPos = e.getPosition().getCoordinate();
+
+			double dx = enemyPos.x - position.x;
+			double dy = enemyPos.y - position.y;
+
+			double dist = Math.sqrt((dx*dx) + (dy*dy));
+
+			Coordinate pos = new Coordinate(position.x, position.y);
+
+			if(dist < getRange())
+			{
+				Effect effect = createEffect(pos, enemyPos);
+				game.addEffect(effect);
+				timeSinceLastFire = 0;
+				return;
+			}
+		}
+	}
+
+	protected abstract double getFireRate();
+	protected abstract double getRange();
+	protected abstract Effect createEffect(Coordinate towerPos, Coordinate enemyPos);
 }
 
 

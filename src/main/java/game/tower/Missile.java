@@ -1,11 +1,8 @@
 package game.tower;
 
-import java.util.List;
-
-import game.Game;
 import game.ImageLoader;
+import game.effect.Effect;
 import game.effect.MissileShot;
-import game.enemy.Enemy;
 import game.path.Coordinate;
 
 public class Missile extends Tower
@@ -20,34 +17,15 @@ public class Missile extends Tower
 		this.timeSinceLastFire = 0;
 	}
 
-	public void interact(Game game, double deltaTime)
-	{
-		List<Enemy> enemies = game.getEnemies();
-		
-		timeSinceLastFire += deltaTime;
-		
-		if(timeSinceLastFire < 0.15)
-			return;
-		
-		for(Enemy e: enemies)
-		{	
-			Coordinate enemyPos = e.getPosition().getCoordinate();
+	protected double getFireRate() {
+		return 0.15;
+	}
 
-			double dx, dy, dist;
-			
-			dx = enemyPos.x - position.x;
-			dy = enemyPos.y - position.y;
-		
-			dist = Math.sqrt((dx*dx) + (dy*dy));
-			
-			Coordinate pos = new Coordinate(position.x, position.y);	
-			
-			if(dist < 50)
-			{	MissileShot missileShot = new MissileShot(pos, enemyPos);
-				game.addEffect(missileShot);
-				timeSinceLastFire = 0;
-				return;
-			}	
-		} 
+	protected double getRange() {
+		return 50.0;
+	}
+
+	protected Effect createEffect(Coordinate towerPos, Coordinate enemyPos) {
+		return new MissileShot(towerPos, enemyPos);
 	}
 }

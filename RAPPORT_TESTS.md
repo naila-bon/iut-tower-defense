@@ -4,8 +4,8 @@
 
 | Métrique | Valeur |
 |----------|--------|
-| **Tests Exécutés** | 33 |
-| **Tests Réussis** | 33  |
+| **Tests Exécutés** | 36 |
+| **Tests Réussis** | 36 |
 | **Tests Échoués** | 0 |
 | **Erreurs** | 0 |
 
@@ -46,16 +46,21 @@
 - Calcul de distance à un point du chemin
 
 ### 7. **game.tower.BlackHoleTest** → 3 tests 
-- Création du BlackHole
+- Création du BlackHole (coût 100, portée 80)
 - Vérification de la position initiale
 - Modification de la position
 
-### 8. **game.tower.SunTest** → 3 tests 
-- Création du Sun
+### 8. **game.tower.MissileTest** → 3 tests 
+- Création du Missile (coût 60, portée 20) 
 - Vérification de la position initiale
 - Modification de la position
 
-### 9. **game.tower.TowerTest** → 2 tests 
+### 9. **game.tower.SunTest** → 3 tests 
+- Création du Sun (coût 300, portée 100)
+- Vérification de la position initiale
+- Modification de la position
+
+### 10. **game.tower.TowerTest** → 2 tests 
 - Vérification de la position 
 - Comparaison des portées différentes
 
@@ -90,15 +95,10 @@ void testExample() {
 ## Commandes Exécution
 
 ```bash
-# Exécuter tous les tests
-mvn clean test
-
-# Exécuter les tests sans recompiler
-mvn test
-
-# Exécuter une classe de test spécifique
-mvn test -Dtest=GameTest
-
-# Générer rapport détaillé
-mvn surefire-report:report
+mvn clean test              # Compiler et tester
+mvn test                    # Tester uniquement
+mvn test -Dtest=MissileTest # Tester Missile
+mvn surefire-report:report  # Rapport détaillé
 ```
+
+---

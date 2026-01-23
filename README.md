@@ -1,5 +1,11 @@
 # Tower Defense – TDD, BDD et Refactoring
 
+**Auteur :** Naila Bon  
+**Projet :** iut-tower-defense  
+**Date :** Janvier 2025 
+
+---
+
 ## 1. Introduction
 
 Ce projet consiste en la reprise et l'amélioration d'un jeu de type Tower Defense existant. L'objectif principal était d'appliquer les bonnes pratiques de développement logiciel, afin d'améliorer la qualité, la maintenabilité et l'extensibilité du code.
